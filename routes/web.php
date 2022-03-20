@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompaniesController;
 use App\Http\Controllers\CoverImageController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,7 @@ Route::group(['middleware'=>'auth'],function(){
     Route::resource('companies',CompaniesController::class);
 
     Route::delete('/cover-images/{id}', [CoverImageController::class, 'destroyCoverImage'])->name('cover_images.destroy');
+
+    Route::put('employees/{id}/avatars',[EmployeesController::class,'updateAvatar'])->name('employees.avatar.update');
+    Route::resource('/employees',EmployeesController::class);
 });
