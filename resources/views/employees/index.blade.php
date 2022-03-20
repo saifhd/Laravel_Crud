@@ -1,7 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Employees') }}
+            @if (Route::is('companies.employees'))
+                {{ $employees->first()->company->name }} Employees
+            @else
+            {{ __('All Employees') }}
+            @endif
         </h2>
     </x-slot>
 

@@ -42,6 +42,7 @@ Route::group(['middleware'=>'auth'],function(){
 
     Route::delete('/cover-images/{id}', [CoverImageController::class, 'destroyCoverImage'])->name('cover_images.destroy');
 
-    Route::put('employees/{id}/avatars',[EmployeesController::class,'updateAvatar'])->name('employees.avatar.update');
+    Route::put('/employees/{id}/avatars',[EmployeesController::class,'updateAvatar'])->name('employees.avatar.update');
+    Route::get('/company/{id}/employees',[EmployeesController::class,'companyEmployess'])->name('companies.employees');
     Route::resource('/employees',EmployeesController::class);
 });

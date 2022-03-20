@@ -140,4 +140,16 @@ class EmployeesController extends Controller
         }
         return redirect()->back()->with('success','Successfully Employee Avatar Updated');
     }
+
+    public function companyEmployess($id)
+    {
+
+        return view('employees.index',[
+            'employees' => Employee::query()
+                ->where('company_id',$id)
+                ->with('company:id,name')
+                ->orderByDesc('id')
+                ->paginate(15)
+        ]);
+    }
 }

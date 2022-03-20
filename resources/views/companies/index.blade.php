@@ -22,6 +22,7 @@
                                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                                     Logo
                                                 </th>
+                                                </a>
                                                 <th scope="col"
                                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                                     Company Name
@@ -64,6 +65,7 @@
                                                             {{ $company->website }}</td>
                                                         <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                                             <div class="flex space-x-4">
+                                                                <a class="text-blue-600 border-b-2 cursor-pointer" href="{{ route('companies.employees',$company->id) }}">Employees</a>
                                                                 <a href="{{ route('companies.edit',$company->id) }}" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                                                 <form action="{{ route('companies.destroy',$company->id) }}" method="post" onsubmit="return confirm('Are sure to perform delete action?')">
                                                                     @csrf
