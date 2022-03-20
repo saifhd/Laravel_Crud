@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\CoverImageController;
 use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +30,14 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('users/profile',[UserProfileController::class,'edit'])->name('profile.edit');
     Route::put('users/profile/password', [UserProfileController::class, 'passwordUpdate'])->name('profile.password.update');
     Route::put('users/profile',[UserProfileController::class,'update'])->name('profile.details.update');
+
+    // Route::get('companies',[CompaniesController::class,'index'])->name('companies.index');
+    // Route::get('companies/create', [CompaniesController::class, 'create'])->name('companies.create');
+    // Route::post('companies', [CompaniesController::class, 'store'])->name('companies.store');
+    // Route::delete('companies/{id}', [CompaniesController::class, 'store']);
+    Route::put('/companies/{id}/logo',[CompaniesController::class,'logoUpdate'])->name('companies.logo.update');
+    Route::put('/companies/{id}/cover-images', [CompaniesController::class, 'coverImageUpdate'])->name('companies.cover_images.update');
+    Route::resource('companies',CompaniesController::class);
+
+    Route::delete('/cover-images/{id}', [CoverImageController::class, 'destroyCoverImage'])->name('cover_images.destroy');
 });

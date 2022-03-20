@@ -18,7 +18,8 @@ class UserSeedr extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'admin@wearedesigners.net',
-            'password' => Hash::make('654321')
+            'password' => Hash::make('654321'),
+            'is_admin' =>1
         ]);
     }
 }
