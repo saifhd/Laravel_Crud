@@ -32,16 +32,15 @@ Route::group(['middleware'=>'auth'],function(){
     Route::put('users/profile/password', [UserProfileController::class, 'passwordUpdate'])->name('profile.password.update');
     Route::put('users/profile',[UserProfileController::class,'update'])->name('profile.details.update');
 
-    // Route::get('companies',[CompaniesController::class,'index'])->name('companies.index');
-    // Route::get('companies/create', [CompaniesController::class, 'create'])->name('companies.create');
-    // Route::post('companies', [CompaniesController::class, 'store'])->name('companies.store');
-    // Route::delete('companies/{id}', [CompaniesController::class, 'store']);
+    //companies
     Route::put('/companies/{id}/logo',[CompaniesController::class,'logoUpdate'])->name('companies.logo.update');
     Route::put('/companies/{id}/cover-images', [CompaniesController::class, 'coverImageUpdate'])->name('companies.cover_images.update');
     Route::resource('companies',CompaniesController::class);
 
+    //companies cover images update
     Route::delete('/cover-images/{id}', [CoverImageController::class, 'destroyCoverImage'])->name('cover_images.destroy');
 
+    // employees
     Route::put('/employees/{id}/avatars',[EmployeesController::class,'updateAvatar'])->name('employees.avatar.update');
     Route::get('/company/{id}/employees',[EmployeesController::class,'companyEmployess'])->name('companies.employees');
     Route::resource('/employees',EmployeesController::class);

@@ -51,7 +51,7 @@
                                     <span class="text-red-600">*</span></label>
                                 <input type="text" id="first_name" name="first_name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Enter Company Name" value="{{ $employee->first_name }}" required>
+                                    placeholder="Enter First Name" value="{{ $employee->first_name }}" required>
                             </div>
                             <div class="mb-6">
                                 <label for="name"
@@ -59,7 +59,7 @@
                                     <span class="text-red-600">*</span></label>
                                 <input type="text" id="last_name" name="last_name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Enter Company Name" value="{{ $employee->last_name }}" required>
+                                    placeholder="Enter Last Name" value="{{ $employee->last_name }}" required>
                             </div>
                             <div class="mb-6">
                                 <label for="email"
@@ -80,7 +80,7 @@
                                     class="block appearance-none w-full bg-white border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
                                     name="company" id="company" value="{{ $employee->company_id }}">
                                     @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

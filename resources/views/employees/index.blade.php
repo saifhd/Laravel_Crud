@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             @if (Route::is('companies.employees'))
-                {{ $employees->first()->company->name }} Employees
+                {{ count($employees)>0 ? $employees->first()->company->name :'' }} Employees
             @else
             {{ __('All Employees') }}
             @endif
@@ -58,7 +58,7 @@
                                         <tbody
                                             class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                                             @forelse ($employees as $employee)
-                                            {{-- @can('view',$company) --}}
+                                            @can('employees',$employee)
                                             <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 <td
                                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -99,7 +99,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            {{-- @endcan --}}
+                                            @endcan
                                             @empty
                                             <tr>
                                                 <td colspan="6" class="text-gray-700 text-center py-6">

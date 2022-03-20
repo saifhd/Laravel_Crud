@@ -27,14 +27,14 @@
                                 <span class="text-red-600">*</span></label>
                             <input type="text" id="first_name" name="first_name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Enter Company Name" value="{{ old('first_name') }}" required>
+                                placeholder="Enter First Name" value="{{ old('first_name') }}" required>
                         </div>
                         <div class="mb-6">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Last Name
                                 <span class="text-red-600">*</span></label>
                             <input type="text" id="last_name" name="last_name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Enter Company Name" value="{{ old('last_name') }}" required>
+                                placeholder="Enter Last Name" value="{{ old('last_name') }}" required>
                         </div>
                         <div class="mb-6">
                             <label for="email"
@@ -53,7 +53,9 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Company</label>
                             <select class="block appearance-none w-full bg-white border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" name="company" id="company">
                                 @foreach ($companies as $company)
+                                @can('view',$company)
                                     <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                @endcan
                                 @endforeach
                             </select>
                             </div>

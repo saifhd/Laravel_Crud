@@ -14,8 +14,13 @@ class CompaniesController extends Controller
 
     public function index()
     {
+        $companies = Company::orderByDesc('id');
+
+        if(auth()->user()->is_admin == 0){
+            $companies->where('user_id',auth()->user()->id);
+        }
         return view('companies.index',[
-            'companies' => Company::paginate(15)
+            'companies' => $companies->paginate(15)
         ]);
     }
 

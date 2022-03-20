@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateAvatarRequest;
 use App\Models\Company;
 use App\Models\Employee;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class EmployeesController extends Controller
@@ -18,11 +19,17 @@ class EmployeesController extends Controller
      */
     public function index()
     {
+        $employees =Employee::query()
+            ->with('company:id,name,user_id')
+            ->orderByDesc('id');
+
+        if(auth()->user()->is_admin == 0){
+            $employees->whereHas('company',function($q){
+                $q->where('user_id',auth()->user()->id);
+            });
+        }
         return view('employees.index',[
-            'employees' => Employee::query()
-                ->with('company:id,name')
-                ->orderByDesc('id')
-                ->paginate(15)
+            'employees' => $employees->paginate(15)
         ]);
     }
 
@@ -34,7 +41,7 @@ class EmployeesController extends Controller
     public function create()
     {
         return view('employees.create',[
-            'companies' => Company::select('id','name')->get()
+            'companies' => Company::select('id','name','user_id')->get()
         ]);
     }
 
@@ -84,10 +91,12 @@ class EmployeesController extends Controller
      */
     public function edit(Employee $employee)
     {
-        // dd($employee);
+        if (!Gate::allows('employees', $employee)) {
+            abort(403);
+        }
         return view('employees.edit',[
             'employee' => $employee,
-            'companies' => Company::select('id','name')
+            'companies' => Company::select('id','name','user_id')
                     ->orderByDesc('id')->get()
         ]);
     }
@@ -101,6 +110,9 @@ class EmployeesController extends Controller
      */
     public function update(EmployeeUpdateRequest $request, Employee $employee)
     {
+        if (!Gate::allows('employees', $employee)) {
+            abort(403);
+        }
         $employee->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -120,6 +132,9 @@ class EmployeesController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        if (!Gate::allows('employees', $employee)) {
+            abort(403);
+        }
         $employee->delete();
 
         return redirect()->back()->with('success','Successfully Employee Deleted');
@@ -128,7 +143,9 @@ class EmployeesController extends Controller
     public function updateAvatar($id, UpdateAvatarRequest $request)
     {
         $employee = Employee::findOrfail($id);
-
+        if (!Gate::allows('employees', $employee)) {
+            abort(403);
+        }
         if($request->has('avcatar')){
             if($employee->avatar_path){
                 Storage::disk('public')->delete($employee->avatar_path);
@@ -143,13 +160,13 @@ class EmployeesController extends Controller
 
     public function companyEmployess($id)
     {
-
+        $employees = Employee::query()
+            ->where('company_id', $id)
+            ->with('company:id,name,user_id')
+            ->orderByDesc('id')
+            ->paginate(15);
         return view('employees.index',[
-            'employees' => Employee::query()
-                ->where('company_id',$id)
-                ->with('company:id,name')
-                ->orderByDesc('id')
-                ->paginate(15)
+            'employees' => $employees
         ]);
     }
 }
