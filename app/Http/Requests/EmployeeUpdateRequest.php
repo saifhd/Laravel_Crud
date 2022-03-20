@@ -28,7 +28,7 @@ class EmployeeUpdateRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'company' => 'nullable|exists:companies,id',
+            'company' => 'required|exists:companies,id',
             'email' => [
                 'nullable',
                 'email',
